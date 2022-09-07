@@ -1,18 +1,21 @@
+from tracemalloc import start
+
 boxWidth = 11
 boxLength = 11
 
 box = [
-    list('###########'),
-    list('#X        #'),
-    list('#         #'),
-    list('#         #'),
-    list('#         #'),
-    list('#         #'),
-    list('#         #'),
-    list('#      ####'),
-    list('#      #  #'),
-    list('#        X#'),
-    list('###########'),
+    list('############'),
+    list('#X         #'),
+    list('#          #'),
+    list('#          #'),
+    list('#          #'),
+    list('#          #'),
+    list('#          #'),
+    list('#          #'),
+    list('#       ####'),
+    list('#       #  #'),
+    list('#         Y#'),
+    list('############'),
 ]
 
 
@@ -50,11 +53,18 @@ def shortestPath(box, startCoord, endCoord):
             if nextCoord in visitedCoords:
                 continue
 
-            if box[nextX][nextY] == '#':
+            if box[nextY][nextX] == '#':
                 continue
 
             findPath.append(currentPath + [nextCoord])
             visitedCoords += [nextCoord]
 
 
-print(shortestPath)
+path = shortestPath(box, [1, 1], [10, 10])
+
+for coords in path:
+    x, y = coords
+    box[y][x] = '.'
+
+    for row in box:
+        print(''.join(row))
